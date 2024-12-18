@@ -13,7 +13,7 @@ router.post('/api/login', (req, res) => {
 	let password = String(sanitize(req.body.password));
 	if (username && password) {
 		return User.find({ 
-			username,
+			username: { $eq: username },
 		})
 			.then((user) => {
 				if (user[0].password == password) {
