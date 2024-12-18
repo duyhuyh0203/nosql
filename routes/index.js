@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/api/login', (req, res) => {
-	let { username, password } = sanitize(req.body);
+	let username = String(sanitize(req.body.username));
+	let password = String(sanitize(req.body.password));
 	if (username && password) {
 		return User.find({ 
 			username,
