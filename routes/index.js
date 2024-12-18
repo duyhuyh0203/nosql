@@ -9,14 +9,13 @@ router.get('/', (req, res) => {
 });
 
 router.post('/api/login', (req, res) => {
-	let { username, password } = req.body;
+	let { username, password } = sanitize(req.body);
 	if (username && password) {
 		return User.find({ 
 			username,
-			password
 		})
 			.then((user) => {
-				if (user.length == 1) {
+				if (user[0].password == password) {
 					return res.json({logged: 1, message: `Login Successful, welcome back ${user[0].username}.` });
 				} else {
 					return res.json({logged: 0, message: 'Login Failed'});
